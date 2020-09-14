@@ -26,7 +26,7 @@ def connect(host, user, password):
        print('[-]Error Connecting to Remote Host')
        return
     child.sendline(password)
-    # 
+    # Timeout makes sure that the prompt is returned before the function returns
     child.expect(PROMPT, timeout=0.5)
     return child
 
