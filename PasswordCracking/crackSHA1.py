@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from urllib.request import urlopen
 import hashlib
 

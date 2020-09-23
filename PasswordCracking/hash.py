@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import hashlib
 
 hashval = input("Enter the password you'd like to hash: ")
