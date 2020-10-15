@@ -12,3 +12,5 @@ The crackSHA1.py takes a sha1 hash and compares it to a 10000 common password fi
 The crackMD5.py takes a md5 hash value and compares it to a password file (of your choice) and provides a success or failure message accordingly.
 The crypt.py uses the password.txt file which is a mock of a database containing
 username and password with a salt and dictionary.txt which is a password list and then use this information to find the correct password.
+4. Sniffers-Flooders-Spoofers -
+The arpspoofer.py sends an ARP packet to a target with a spoofed address and then restores the original values back after the script exits. It uses the scapy library to achieve this.
